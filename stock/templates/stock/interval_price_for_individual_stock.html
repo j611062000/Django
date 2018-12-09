@@ -1,0 +1,37 @@
+<!-- <tr>: defines a row -->
+{% load static %}
+<html>
+	<head>
+		<link rel="stylesheet" href="{% static 'stock/style.css' %}" type="text/css" >
+
+	</head>
+
+<table>
+		  <h1>{{stock_ticker}}</h1>
+
+
+
+		  <thead>
+		    <tr>
+		      <th>#</th>
+		      <th>Time</th>
+		      <th>Price</th>
+		    </tr>
+		  </thead>
+
+
+
+		  <tbody>
+		  	{% for interval in stock_interval_price %}
+
+			    <tr>
+			  	  <!-- stock name/ ticker/ closing price/ intraday info -->
+			      <td>{{forloop.counter}}</td>
+			      <td>{{interval.end_of_interval|date:'Y-m-d H:i'}}</td>
+			      <td>{{interval.price_of_the_interval}}</td>
+			    </tr>
+
+			{% endfor %}
+		  </tbody>
+
+</table>

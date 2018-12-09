@@ -1,0 +1,71 @@
+<!-- <tr>: defines a row -->
+{% load static %}
+<html>
+	<head>
+		<title>Top 20 stocks by trading volume</title>
+		<link rel="stylesheet" href="{% static 'stock/style.css' %}" type="text/css" >
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+	</head>
+
+	<body>
+		<!-- Side navigation -->
+		<div class="sidenav">
+		  <a href="#">About</a>
+		  <a href="#">Services</a>
+		  <a href="#">Clients</a>
+		  <a href="#">Contact</a>
+		</div>
+
+		<!-- Page content -->
+		<div class="main">
+		 
+		
+		<div class="navbar">
+		  <a class="active" href=""><i class="fa fa-fw fa-home"></i> Home</a> 
+		  <input type="text" placeholder="Search ticker">
+
+		</div>
+				
+		<div class="page-header">
+            <h1>Top 20 stocks by trading volume</h1>
+        </div>
+
+        
+        <table>
+		  
+		  <thead>
+		    <tr>
+		      <th>#</th>
+		      <th>Stock Name</th>
+		      <th>Ticker</th>
+		      <th>Closing Price</th>
+		      <th>Intraday Info</th>
+		      <th>Last refresh date</th>
+		    </tr>
+		  </thead>
+
+		  <tbody>
+		  	{% for stock_info in object_list %}
+		  		{% for stock in stock_info.stock_info_set.all %}
+
+			    <tr>
+			  	  <!-- stock name/ ticker/ closing price/ intraday info -->
+			      <td>{{forloop.counter}}</td>
+			      <td>{{stock.stock_name}}</td>
+			      <td>{{stock.stock_ticker}}</td>
+			      <td>{{stock.closing_price_of_the_day}}</td>
+			      <td><a href="{% url 'stock:stock_detail' stock.stock_ticker %}">intraday detail</a></td>
+			      <td>{{stock.trading_date.trading_date}}</td>
+			    </tr>
+				{% endfor %}
+
+			{% endfor %}
+		  </tbody>
+
+		</table>
+		</div>
+	</body>
+	
+<html>
