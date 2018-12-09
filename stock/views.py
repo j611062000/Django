@@ -20,10 +20,6 @@ def refresh_data():
 
 
 class StockTodayArchiveView(TodayArchiveView):
-    if not Trading_Date.objects.exists():
-        refresh_data()
-    elif Trading_Date.objects.latest("trading_date").trading_date.date() < timezone.now().date():
-        refresh_data()
     queryset = Trading_Date.objects.all()
     date_field = "trading_date"
     allow_future = True
