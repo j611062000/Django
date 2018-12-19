@@ -2,7 +2,8 @@ from alpha_vantage.timeseries import TimeSeries
 from datetime import datetime
 from django.utils import timezone
 from bs4 import BeautifulSoup as bs
-import requests,time
+import requests
+import time
 
 
 def parse_time(datetime_str, datetime_format="%Y-%m-%d %H:%M:%S"):
@@ -20,14 +21,17 @@ class top_20_stocks():
         url = "https://www.tradingview.com/markets/stocks-usa/market-movers-active/"
         html = requests.get(url)
         soup = bs(html.content, "lxml")
-        filting = lambda x: x.split(':')[1]
+
+        def filting(x): return x.split(':')[1]
 
         class_of_ticker = "tv-data-table__row tv-data-table__stroke tv-screener-table__result-row"
         class_of_fullname = "tv-screener__description"
         ticker_name_raw = soup.find_all("tr", class_=class_of_ticker)
-        full_name = [x.text[10:] for x in soup.find_all(class_=class_of_fullname)]
-        ticker_name = [filting(element['data-symbol']) for element in ticker_name_raw]
-        temp = {}
+        full_name = [x.text[10:]
+                     for x in soup.find_all(class_=class_of_fullname)]
+        ticker_name = [filting(element['data-symbol'])
+                       for element in ticker_name_raw]
+        temp = dict()
         for i in range(20):
             temp[ticker_name[i]] = full_name[i]
         return temp
@@ -37,10 +41,12 @@ class top_20_stocks():
         for ticker in top_20_list:
             try:
                 time.sleep(10)
+                print("Retrieving the data of {}...".format(ticker))
                 temp.append(stock_detail(top_20_list[ticker], ticker))
             except:
                 pass
         return temp
+
 
 class stock_detail():
 
