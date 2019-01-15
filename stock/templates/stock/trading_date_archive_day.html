@@ -14,23 +14,12 @@
 	<body>
 		<!-- Side navigation -->
 		<div class="sidenav">
-		  <a href="#">About</a>
-		  <a href="#">Services</a>
-		  <a href="#">Clients</a>
-		  <a href="#">Contact</a>
+		  <a href="{% url 'stock:stock_welcome' %}">About</a>
 		</div>
 
 		<!-- Page content -->
 		<div class="main">
 		 
-		
-		<div class="navbar">
-		<div class="w3-container">
-
-		  <input type="text" placeholder="Search ticker">
-
-		</div>
-		</div>
 
 		<div class="w3-container w3-center">
 
@@ -66,7 +55,7 @@
 			      <td><a href="{% url 'stock:stock_detail' stock.stock_ticker %}">intraday detail</a></td>
 			      <td>{{stock.trading_date.trading_date}}</td>
 			    </tr>
-				{% endfor %}
+			{% endfor %}
 
 			{% endfor %}
 		  </tbody>

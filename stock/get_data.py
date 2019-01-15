@@ -1,7 +1,8 @@
 from alpha_vantage.timeseries import TimeSeries
+from bs4 import BeautifulSoup as bs
 from datetime import datetime
 from django.utils import timezone
-from bs4 import BeautifulSoup as bs
+
 import requests
 import time
 

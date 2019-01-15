@@ -1,84 +1,57 @@
 <!-- <tr>: defines a row -->
 {% load static %}
 <html>
+
 <head>
 	<link rel="stylesheet" href="{% static 'stock/style.css' %}" type="text/css" >
+    <!-- source of W3CSS -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- source of plotting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    
-
-    
 </head>
 
 <body>
     <div class=" w3-black w3-container w3-round w3-margin ">
-      <a href="#" class="w3-bar-item w3-button">Chart</a>
-      <a href="#" class="w3-bar-item w3-button">News</a>
-      <a href="#" class="w3-bar-item w3-button">Table</a>
-      <a href="#" class="w3-bar-item w3-button w3-red w3-right">Home Page</a>
+      <a href="" class="w3-bar-item w3-button w3-text-light-blue">News</a>
+      <a href="{% url 'stock:top_20' %}" class="w3-bar-item w3-button w3-deep-orange w3-right">Top_20_List
+      </a>
     </div>
 
 
-    <div class="w3-container w3-center w3-metro-light-blue w3-card w3-margin">
-    <canvas id="stock_interval_price"></canvas>
+    <div class="w3-container  w3-card w3-margin w3-round">
+        <canvas id="stock_interval_price"></canvas>
     </div>
     <script>
-        let price = time = []
-        let i = 1
+        let price = []
+        let time = []
+
         {% for interval in stock_interval_price %}
-              day = "{{interval.end_of_interval.day}}"
-              hour = "{{interval.end_of_interval.hour}}"
-              min = "{{interval.end_of_interval.minute}}"
-              time.unshift(i++)
-              price.unshift("{{interval.price_of_the_interval}}")
+            time.unshift(
+                "{{interval.end_of_interval.month}}"+"/"+
+                "{{interval.end_of_interval.day}}"+" "+
+                "{{interval.end_of_interval.hour}}"+":"+
+                "{{interval.end_of_interval.minute}}"
+            )
+
+            price.unshift(Number("{{interval.price_of_the_interval}}"))
         {% endfor %}
 
-        var ctx = document.getElementById("stock_interval_price");
-        var myChart = new Chart(ctx, {
+        let html_canvas_element = document.getElementById("stock_interval_price");
+        let myChart = new Chart(html_canvas_element, {
             type: 'line',
             data: {
                 labels: time,
                 datasets: [{
                     label: '{{stock_ticker}}',
                     data: price,
-                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                    borderColor: 'rgba(255,0,0,1)',
-                    cubicInterpolationMode: 'default',
-                    showLine: true
-
+                    borderColor: '#7ed6df',
                 }]
             },
             options: {
                 tooltips: {
                     mode: 'point',
                 }
-            }
-         
+            }      
         });
     </script>
-
-    <!-- <table>
-    		  <thead>
-    		    <tr>
-    		      <th>#</th>
-    		      <th>Time</th>
-    		      <th>Price</th>
-    		    </tr>
-    		  </thead>
-
-
-
-    		  <tbody>
-    		  	{% for interval in stock_interval_price %}
-
-    			    <tr>
-    			      <td>{{forloop.counter}}</td>
-    			      <td>{{interval.end_of_interval.day}}</td>
-    			      <td>{{interval.price_of_the_interval}}</td>
-    			    </tr>
-
-    			{% endfor %}
-    		  </tbody>
-
-    </table> -->
 </body>
