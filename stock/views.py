@@ -67,3 +67,12 @@ def checkData(request):
 
 def stock_welcome(request):
     return render(request, 'stock/stock_home_page.html')
+
+def individual_stock_news(request, ticker):
+    return render(
+        request,
+        'stock/news_individual_stock.html',
+        {
+            "ticker": ticker,
+        }
+    )

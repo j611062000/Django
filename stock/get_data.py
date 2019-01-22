@@ -21,7 +21,7 @@ class top_20_stocks():
     def get_top_20_list(self):
         url = "https://www.tradingview.com/markets/stocks-usa/market-movers-active/"
         html = requests.get(url)
-        soup = bs(html.content, "lxml")
+        soup = bs(html.content)
 
         def filting(x): return x.split(':')[1]
 

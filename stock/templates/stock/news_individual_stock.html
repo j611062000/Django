@@ -1,0 +1,20 @@
+<!-- <tr>: defines a row -->
+{% load static %}
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'stock/style.css' %}" type="text/css" >
+    <!-- source of W3CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- source of plotting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+</head>
+
+<body>
+    <div class=" w3-black w3-container w3-round w3-margin ">
+      <a href="{% url 'stock:stock_detail' ticker %}" class="w3-bar-item w3-button w3-text-light-blue">Chart of {{ticker}}</a>
+      <a href="{% url 'stock:top_20' %}" class="w3-bar-item w3-button w3-deep-orange w3-right">Top_20_List
+      </a>
+    </div>
+
+</body>

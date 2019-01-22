@@ -12,7 +12,7 @@
 
 <body>
     <div class=" w3-black w3-container w3-round w3-margin ">
-      <a href="" class="w3-bar-item w3-button w3-text-light-blue">News</a>
+      <a href="{% url 'stock:individual_stock_news' stock_ticker%}" class="w3-bar-item w3-button w3-text-light-blue">News</a>
       <a href="{% url 'stock:top_20' %}" class="w3-bar-item w3-button w3-deep-orange w3-right">Top_20_List
       </a>
     </div>
