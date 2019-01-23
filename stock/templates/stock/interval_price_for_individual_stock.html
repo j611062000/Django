@@ -11,47 +11,53 @@
 </head>
 
 <body>
-    <div class=" w3-black w3-container w3-round w3-margin ">
-      <a href="{% url 'stock:individual_stock_news' stock_ticker%}" class="w3-bar-item w3-button w3-text-light-blue">News</a>
-      <a href="{% url 'stock:top_20' %}" class="w3-bar-item w3-button w3-deep-orange w3-right">Top_20_List
-      </a>
+    <div class="w3-container w3-margin">
+
+        <div class=" w3-black w3-round w3-bar">
+          <a href="{% url 'stock:individual_stock_news' stock_ticker%}" class="w3-button w3-text-light-blue">News</a>
+          <a href="{% url 'stock:top_20' %}" class="w3-right w3-button w3-deep-orange">Top_20_List
+          </a>
+        </div>
+
+
+        <div class="w3-card w3-margin-top w3-round">
+            <canvas id="stock_interval_price"></canvas>
+        </div>
+
+        <script>
+            let price = []
+            let time = []
+
+            {% for interval in stock_interval_price %}
+                time.unshift(
+                    "{{interval.end_of_interval.month}}"+"/"+
+                    "{{interval.end_of_interval.day}}"+" "+
+                    "{{interval.end_of_interval.hour}}"+":"+
+                    "{{interval.end_of_interval.minute}}"
+                )
+
+                price.unshift(Number("{{interval.price_of_the_interval}}"))
+            {% endfor %}
+
+            let html_canvas_element = document.getElementById("stock_interval_price");
+            
+            let myChart = new Chart(html_canvas_element, {
+                type: 'line',
+                data: {
+                    labels: time,
+                    datasets: [{
+                        label: '{{stock_ticker}}',
+                        data: price,
+                        borderColor: '#7ed6df',
+                    }]
+                },
+                options: {
+                    tooltips: {
+                        mode: 'point',
+                    }
+                }      
+            });
+        </script>
     </div>
 
-
-    <div class="w3-container  w3-card w3-margin w3-round">
-        <canvas id="stock_interval_price"></canvas>
-    </div>
-    <script>
-        let price = []
-        let time = []
-
-        {% for interval in stock_interval_price %}
-            time.unshift(
-                "{{interval.end_of_interval.month}}"+"/"+
-                "{{interval.end_of_interval.day}}"+" "+
-                "{{interval.end_of_interval.hour}}"+":"+
-                "{{interval.end_of_interval.minute}}"
-            )
-
-            price.unshift(Number("{{interval.price_of_the_interval}}"))
-        {% endfor %}
-
-        let html_canvas_element = document.getElementById("stock_interval_price");
-        let myChart = new Chart(html_canvas_element, {
-            type: 'line',
-            data: {
-                labels: time,
-                datasets: [{
-                    label: '{{stock_ticker}}',
-                    data: price,
-                    borderColor: '#7ed6df',
-                }]
-            },
-            options: {
-                tooltips: {
-                    mode: 'point',
-                }
-            }      
-        });
-    </script>
 </body>
