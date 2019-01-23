@@ -5,6 +5,7 @@ from django.views import generic
 from django.urls import reverse
 from datetime import datetime
 
+from .get_news import get_news
 from .get_data import top_20_stocks, stock_detail
 from .models import Trading_Date, Stock_Info, fifteen_mins_interval
 
@@ -69,10 +70,15 @@ def stock_welcome(request):
     return render(request, 'stock/stock_home_page.html')
 
 def individual_stock_news(request, ticker):
+    stock_full_name=Stock_Info.objects.filter(stock_ticker=ticker)[0].stock_name
+    news=get_news(stock_full_name)
+
     return render(
         request,
         'stock/news_individual_stock.html',
         {
-            "ticker": ticker,
+            "news": news,
+            "ticker":ticker,
+            "stock_full_name":stock_full_name,
         }
     )
