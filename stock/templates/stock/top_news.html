@@ -1,0 +1,64 @@
+<!-- <tr>: defines a row -->
+{% load static %}
+<html>
+  <head>
+      <!-- W3.CSS -->
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+      <!-- Bootstrap_CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <!-- Bootstrap_JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+  </head>
+
+  <body>
+    <div class="container-fluid p-2 bg-light w3-card">
+      <nav class="nav">
+        <a class="nav-link " href="{% url 'stock:stock_welcome' %}">Home</a>
+        <a class="nav-link " href="{% url 'stock:top_20' %}">Top 20 list</a>
+      </nav>
+    </div>
+
+
+
+    <div class="container-fluid ">
+      <table class="table table-hover ">
+        <thead>
+          <tr>
+            <th scope="">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Source</th>
+            <th scope="col">Descrption</th>
+            <th scope="col" style="width: 10%">Date</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for article in news%}
+              <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+
+                  {% for key, value in article.items %}
+                      {% if forloop.first %}
+                          <td><a href={{value.1}}>{{value.0}}</a></td>
+                      {% else %}
+                          <td class="w-auto">{{value}}</td>
+                      {% endif %}
+                  {% endfor %}
+
+              </tr>
+
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+  </body>
+  
+<html>

@@ -5,9 +5,11 @@ from django.views import generic
 from django.urls import reverse
 from datetime import datetime
 
-from .get_news import get_news
+from .get_news import get_news, get_headlines
 from .get_data import top_20_stocks, stock_detail
 from .models import Trading_Date, Stock_Info, fifteen_mins_interval
+
+import requests
 
 
 def refresh_data():
@@ -80,5 +82,14 @@ def individual_stock_news(request, ticker):
             "news": news,
             "ticker":ticker,
             "stock_full_name":stock_full_name,
+        }
+    )
+def headlines(request):
+    news=get_headlines()
+    return render(
+        request,
+        'stock/top_news.html',
+        {
+            "news": news,
         }
     )

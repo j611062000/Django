@@ -17,11 +17,13 @@
 </head>
 
 <body>
+    <!-- bar -->
     <div class=" w3-black w3-container w3-round w3-margin  ">
       <a href="{% url 'stock:stock_detail' ticker %}" class="w3-bar-item w3-button w3-text-light-blue">{{stock_full_name}} | Back to chart</a>
       <a href="{% url 'stock:top_20' %}" class="w3-bar-item w3-button w3-deep-orange w3-right">Top_20_List
       </a>
     </div>
+
     <div class="w3-container w3-card">
     <table class="table table-hover ">
       <thead>

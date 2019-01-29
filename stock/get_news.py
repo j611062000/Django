@@ -31,6 +31,29 @@ def get_news(input_key_word):
             })
     return news
 
+def get_headlines():
+    news=list()
+    apiKey = "7919d88a858c4e3596ba7d7d24eb99fa"
+
+    url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey='+apiKey+'&category=business&pagesize=15'
+    json_data = requests.get(url).json()
+
+    for article in json_data["articles"]:
+        
+        title=[article["title"],article['url']]
+        source=article["source"]['name']
+        description=article["description"]
+        date=article["publishedAt"][5:10]
+        
+        news.append({
+            "title":title,
+            "source":source,
+            "description":description,
+            "date":date,
+            })
+    return news
+
+
 if __name__ == '__main__':
     """
     An article(element) in articles:
@@ -46,4 +69,5 @@ if __name__ == '__main__':
     }
     """
 
-    print(get_news("PROSHARES ULTRAPRO SHORT QQQ"))
+    # print(get_news("PROSHARES ULTRAPRO SHORT QQQ"))
+    print(get_headlines())

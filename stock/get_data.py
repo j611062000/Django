@@ -60,12 +60,8 @@ class stock_detail():
     def get_interval_price(self,  token="8BHO3DV69A6T0OPC"):
         ts = TimeSeries(key=token)
         data, meta_data = ts.get_intraday(self.ticker)
-        temp = {}
+        temp = dict()
         for interval in data:
             temp[parse_time(interval)] = data[interval]['4. close']
         return temp
 
-# temp = top_20_stocks()
-# print(temp.date)
-# print(temp.top_20_list)
-# print([x.closing_price for x in temp.top_20_detail])

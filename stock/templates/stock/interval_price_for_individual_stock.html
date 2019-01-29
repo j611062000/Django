@@ -40,8 +40,9 @@
             {% endfor %}
 
             let html_canvas_element = document.getElementById("stock_interval_price");
-            
-            let myChart = new Chart(html_canvas_element, {
+
+            let myChart = new Chart(html_canvas_element, 
+            {
                 type: 'line',
                 data: {
                     labels: time,
@@ -56,7 +57,8 @@
                         mode: 'point',
                     }
                 }      
-            });
+            }
+            );
         </script>
     </div>
 
