@@ -1,25 +1,14 @@
-<!-- <tr>: defines a row -->
-{% load static %}
-<html>
+{% extends "stock/base_with_nav.html" %}
 
-<head>
-	<link rel="stylesheet" href="{% static 'stock/style.css' %}" type="text/css" >
-    <!-- source of W3CSS -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <!-- source of plotting -->
+{% block nav%}
+    <a class="nav-link " href="{% url 'stock:individual_stock_news' stock_ticker %}">News</a>
+    <a class="nav-link " href="{% url 'stock:top_20' %}">Top 20 list</a>
+{% endblock nav%}
+
+{% block below_nav %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-</head>
-
-<body>
+    
     <div class="w3-container w3-margin">
-
-        <div class=" w3-black w3-round w3-bar">
-          <a href="{% url 'stock:individual_stock_news' stock_ticker%}" class="w3-button w3-text-light-blue">News</a>
-          <a href="{% url 'stock:top_20' %}" class="w3-right w3-button w3-deep-orange">Top_20_List
-          </a>
-        </div>
-
-
         <div class="w3-card w3-margin-top w3-round">
             <canvas id="stock_interval_price"></canvas>
         </div>
@@ -62,4 +51,4 @@
         </script>
     </div>
 
-</body>
+{% endblock below_nav %}

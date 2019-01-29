@@ -1,0 +1,32 @@
+{% extends "stock/base_with_nav.html" %}
+{% block below_nav %}
+    <div class="container-fluid ">
+      <table class="table table-hover ">
+        <thead>
+          <tr>
+            <th scope="">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Source</th>
+            <th scope="col">Descrption</th>
+            <th scope="col" style="width: 10%">Date</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for article in news%}
+              <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  {% for key, value in article.items %}
+                      {% if forloop.first %}
+                          <td><a href={{value.1}}>{{value.0}}</a></td>
+                      {% else %}
+                          <td class="w-auto">{{value}}</td>
+                      {% endif %}
+                  {% endfor %}
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock below_nav %}
