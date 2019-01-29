@@ -1,42 +1,42 @@
 {% extends "stock/base_with_nav.html" %}
 
+{% block title%}Top 20 list by Volume{% endblock title %}
+
+
 {% block nav%}
-	<a class="nav-link active" href="{% url 'stock:stock_welcome' %}">Home</a>
+	<a class="nav-link" href="{% url 'stock:stock_welcome' %}">Home</a>
 	<a class="nav-link" href="{% url 'stock:headlines' %}">Top Headlines</a>
 {% endblock nav%}
 
 {% block below_nav %}
     <div class="container-fluid ">
         <table class = "table table-hover ">
-		  <thead>
-		    <tr>
-		      <th>#</th>
-		      <th style="width: 40%">Stock Name</th>
-		      <th>Ticker</th>
-		      <th>Closing Price</th>
-		      <th>Intraday Info</th>
-		      <th style="width: 20%">Last refresh date</th>	
-		    </tr>
-		  </thead>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th style="width: 40%">Stock Name</th>
+					<th>Ticker</th>
+					<th>Closing Price</th>
+					<th>Intraday Info</th>
+					<th style="width: 20%">Last refresh date</th>	
+				</tr>
+			</thead>
 
-		  <tbody>
-		  	{% for stock_info in object_list %}
-		  		{% for stock in stock_info.stock_info_set.all %}
-
-			    <tr>
-			  	  <!-- stock name/ ticker/ closing price/ intraday info -->
-			      <td>{{forloop.counter}}</td>
-			      <td>{{stock.stock_name}}</td>
-			      <td>{{stock.stock_ticker}}</td>
-			      <td>{{stock.closing_price_of_the_day}}</td>
-			      <td><a href="{% url 'stock:stock_detail' stock.stock_ticker %}">Go</a></td>
-			      <td>{{stock.trading_date.trading_date}}</td>
-			    </tr>
-			{% endfor %}
-
-			{% endfor %}
-		  </tbody>
-
+			<tbody>
+				{% for stock_info in object_list %}
+					{% for stock in stock_info.stock_info_set.all %}
+				  		<!-- stock name/ ticker/ closing price/ intraday info -->
+					    <tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{stock.stock_name}}</td>
+							<td>{{stock.stock_ticker}}</td>
+							<td>{{stock.closing_price_of_the_day}}</td>
+							<td><a href="{% url 'stock:stock_detail' stock.stock_ticker %}">Go</a></td>
+							<td>{{stock.trading_date.trading_date}}</td>
+					    </tr>
+					{% endfor %}
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 {% endblock below_nav  %}

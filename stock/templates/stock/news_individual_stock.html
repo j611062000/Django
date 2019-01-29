@@ -1,6 +1,8 @@
 {% extends "stock/base_news.html" %}
 
 {% block nav%}
-<a class="nav-link " href="{% url 'stock:stock_detail' ticker %}">Back to chart</a>
-<a class="nav-link " href="{% url 'stock:top_20' %}">Top 20 list</a>
+  <a class="nav-link " href="{% url 'stock:stock_detail' ticker %}">Back to chart</a>
+  <a class="nav-link " href="{% url 'stock:top_20' %}">Top 20 list</a>
 {% endblock nav %}
+
+{% block title%}News of {{ticker}}{% endblock title %}

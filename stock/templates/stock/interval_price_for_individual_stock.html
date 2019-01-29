@@ -7,12 +7,8 @@
 
 {% block below_nav %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    
-    <div class="w3-container w3-margin">
-        <div class="w3-card w3-margin-top w3-round">
-            <canvas id="stock_interval_price"></canvas>
-        </div>
-
+    <div class="container_fluid shadow-sm">
+        <canvas id="stock_interval_price"></canvas>
         <script>
             let price = []
             let time = []
@@ -50,5 +46,4 @@
             );
         </script>
     </div>
-
 {% endblock below_nav %}

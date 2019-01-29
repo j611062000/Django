@@ -1,57 +1,48 @@
 from datetime import datetime, timedelta
 import requests
 
+def parse_json(json_data):
+
+    news = list()
+
+    for article in json_data["articles"][:9]:
+
+        date = article["publishedAt"][5:10]
+        description = article["description"]
+        source = article["source"]['name']
+        title = [article["title"], article['url']]
+
+        news.append({
+            "title": title,
+            "source": source,
+            "description": description,
+            "date": date,
+        })
+
+    return news
+
 
 def get_news(input_key_word):
 
-    news=list()
-
-    python_date_from = datetime.today()+timedelta(days=-21)
-
     url_key_word = input_key_word
+    python_date_from = datetime.today()+timedelta(days=-21)
     url_date_from = str(python_date_from.year)+"-" + \
-        str(python_date_from.month)+"-"+str(python_date_from.day)
+        str(python_date_from.month)+"-" +\
+        str(python_date_from.day)
     apiKey = "7919d88a858c4e3596ba7d7d24eb99fa"
+    url = 'https://newsapi.org/v2/everything?q=' + \
+        url_key_word + "&sortBy=relevancy&apiKey="+apiKey
 
-    url = 'https://newsapi.org/v2/everything?q='+url_key_word +"&sortBy=relevancy&apiKey="+apiKey
-    json_data = requests.get(url).json()
+    return parse_json(requests.get(url).json())
 
-    for article in json_data["articles"][:9]:
-        
-        title=[article["title"],article['url']]
-        source=article["source"]['name']
-        description=article["description"]
-        date=article["publishedAt"][5:10]
-        
-        news.append({
-            "title":title,
-            "source":source,
-            "description":description,
-            "date":date,
-            })
-    return news
 
 def get_headlines():
-    news=list()
+
     apiKey = "7919d88a858c4e3596ba7d7d24eb99fa"
+    url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=' + \
+        apiKey+'&category=business&pagesize=20'
 
-    url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey='+apiKey+'&category=business&pagesize=15'
-    json_data = requests.get(url).json()
-
-    for article in json_data["articles"]:
-        
-        title=[article["title"],article['url']]
-        source=article["source"]['name']
-        description=article["description"]
-        date=article["publishedAt"][5:10]
-        
-        news.append({
-            "title":title,
-            "source":source,
-            "description":description,
-            "date":date,
-            })
-    return news
+    return parse_json(requests.get(url).json())
 
 
 if __name__ == '__main__':
